@@ -10,8 +10,10 @@ uses Quantum mechanics principles to solve it in polynomical time.
 
 This code was created as part of the Excelence Baccalaureate research project.
 
-Details on the usage of this code can be found in the project's
+Details on how to use it can be found in the project's
 [wiki](https://github.com/YagoGG/q-simon/wiki).
+
+Everything is under the MIT license, which can be found in the LICENSE file.
 
 ---
 

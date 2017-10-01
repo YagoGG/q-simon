@@ -69,20 +69,16 @@ function [rw, qsteps, times] = simon(n, rep = 1, verbose = false)
         endif
         
         # Check that the equation doesn't already exist, and is linearly indep
-        if(modrank([system; eq], 2) == size(system)(1) + 1)
+        [rp, rank] = kernel([system; eq], verbose);
+        if(rank == rows(system) + 1)
           system = [system; eq];
           yarr = [yarr; y10];
+          r = rp;
         else
         endif
       endif
     until(size(system)(1) == n - 1)    
     
-    r (abs (r) < 1e-10) = 0; # Close-to-zero comps of s must be 0
-    
-    m = min(abs(r(r != 0)));
-    r = r / m;
-    r = round(r);
-    r = mod(r, 2);
     if(verbose)
       disp("system:"), disp(system);
     endif

@@ -1,5 +1,5 @@
-  debug_on_error (true, "local");
 function [rw, qsteps, times] = simon(n, rep = 1, verbose = false)
+  debug_on_error(true, "local");
 
   outcomes = zeros(2, 1); # 1: Good result 2: Wrong result
 

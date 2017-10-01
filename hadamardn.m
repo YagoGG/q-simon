@@ -21,14 +21,14 @@ function out = hadamardn(vector)
     n = length(vector);
     nbits = log2(n);
     magnitude = 1 / sqrt(n);
- 
+
     matrix = ones(n, n);
     for y = 1:n
       for x = 1:n
         matrix(y,x) = (-1) ^ dot((dec2bin(x - 1, nbits) - "0"), (dec2bin(y - 1, nbits) - "0"));
       endfor
     endfor
-    
+
     ### disp("H^n (1/, matrix):") , disp(n), disp(matrix);
     out = magnitude * matrix * vector;
   else

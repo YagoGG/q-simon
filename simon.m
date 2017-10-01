@@ -17,7 +17,7 @@ function [rw, qsteps, times] = simon(n, rep = 1)
 
     do
       if(size(qsteps) < i)
-        qsteps(i) = 0;
+        qsteps(i) = 5;
       else
         qsteps(i) += 5;
       endif

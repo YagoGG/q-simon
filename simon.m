@@ -1,5 +1,5 @@
-function [rw, qsteps, times] = simon(n, rep = 1)
   debug_on_error (true, "local");
+function [rw, qsteps, times] = simon(n, rep = 1, verbose = false)
 
   outcomes = zeros(2, 1); # 1: Good result 2: Wrong result
 
@@ -9,8 +9,8 @@ function [rw, qsteps, times] = simon(n, rep = 1)
   
   while(i <= rep)
     t0 = time();
-    
-    [f, s] = simFuncGen(n, true);
+
+    [f, s] = simFuncGen(n, verbose);
 
     system = [];
     yarr = [];
@@ -22,7 +22,7 @@ function [rw, qsteps, times] = simon(n, rep = 1)
         qsteps(i) += 5;
       endif
       
-      y10 = routine(f, n);
+      y10 = routine(f, n, verbose);
       
       # Add new linear equation if y isn't 0 nor repeated
       if(y10 != 0)
@@ -30,7 +30,9 @@ function [rw, qsteps, times] = simon(n, rep = 1)
         
         eq = y - "0"; # Split binary string and turn it numeric
         
-        disp("eq:"), disp(eq);
+        if(verbose)
+          disp("eq:"), disp(eq);
+        endif
         
         # Check that the equation doesn't already exist, and is linearly indep
         if(modrank([system; eq], 2) == size(system)(1) + 1)
@@ -41,35 +43,32 @@ function [rw, qsteps, times] = simon(n, rep = 1)
       endif
     until(size(system)(1) == n - 1)    
     
-    disp("System:"), disp(system);
-    
-    disp("Result (nullspace, before cleaning):"), disp(r);
-    
     r (abs (r) < 1e-10) = 0; # Close-to-zero comps of s must be 0
     
     m = min(abs(r(r != 0)));
     r = r / m;
     r = round(r);
     r = mod(r, 2);
+    if(verbose)
+      disp("system:"), disp(system);
+    endif
 
     r = num2str(r).';
     
     if(r == dec2bin(s, n))
       t = time() - t0;
       times = [times t];
-      disp("RESULT OK!");
+      printf("#%i: RESULT OK!\n", i);
       outcomes(1)++;
     else
       disp("Expected:"), disp(dec2bin(s, n));
       outcomes(2)++;
-      disp("WRONG RESULT!");
-      error(strcat("simon: got a wrong result, " , r , " != ", dec2bin(s, n)));
+      printf("#%i: WRONG RESULT!\n", i);
+      error(cstrcat("simon: got a wrong result, " , r , " (actual) != ",
+        dec2bin(s, n), " (expected)"));
     endif
     i++;
   endwhile
-  
-  fprintf("RESULTS:\n");
-  fprintf(" %i passed\n %i failed\n", outcomes(1), outcomes(2));
   
   rw = outcomes;
 endfunction

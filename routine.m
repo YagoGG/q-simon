@@ -1,4 +1,4 @@
-function y = routine(f, n)
+function y = routine(f, n, verbose = false)
   # Create and collapse state vector containing f(x)
   phi = zeros(2 ^ n, 1);
   for i = 1: 2 ^ n
@@ -6,7 +6,10 @@ function y = routine(f, n)
   endfor
   
   [phi, value] = collapse(phi);
-  disp("Collapsed image:"), disp(value);
+
+  if(verbose)
+    disp("Collapsed image:"), disp(value);
+  endif
   
   # Make equal superposition of x and x (BITWISE XOR) s
   psi = zeros(2 ^ n, 1);
@@ -19,11 +22,17 @@ function y = routine(f, n)
     
     psi(i) = 1 / sqrt(2);
   endfor
-  disp("PSI:"), disp(psi);
   
-  # Apply QFT to psi to get y
+  if(verbose)
+    disp("PSI:"), disp(psi);
+  endif
+
+  # Apply Hadamard to psi to get y
   psi = 1 / sqrt(2 ^ n) * hadamard(2 ^ n) * psi;
-  disp("PSI (after H ^ n):"), disp(psi);
+
+  if(verbose)
+    disp("PSI (after H ^ n):"), disp(psi);
+  endif
   
   [psi, y] = collapse(psi);
 endfunction

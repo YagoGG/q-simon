@@ -1,3 +1,37 @@
+# ##############################################################################
+#
+#                    SIMON'S ALGORITHM SIMULATION FUNCTION
+#
+# ##############################################################################
+#
+# simon.m
+#
+# Author: Yago Gonzalez
+# Year: 2016
+# License: MIT
+#
+# Simulate the behavior of Simon's algorithm with random black box functions.
+#
+# PARAMETERS
+#   n (integer) - Length of the binary strings to be used
+#   rep (integer) - Amount of times the process should be repeated (with a new
+#       random function each time)
+#       Defaults to 1
+#   verbose (boolean) - Whether to show or not debug information along the
+#       process, like the amplitudes of the state vectors involved, or the
+#       steps followed in operations with matrices. "RESULT OK"/"WRONG RESULT"
+#       messages will be displayed, regardless of this setting
+#       Defaults to false
+#
+# RETURNS
+#   rw (column matrix) - A vector with two components: the amount of right and
+#       wrong results of the simulation, in that order
+#   qsteps (row matrix) - Amount of quantum steps taken to solve the problem
+#       in each repetition
+#   times (row matrix) - Time taken to execute the simulation for each
+#     repetition
+#
+
 function [rw, qsteps, times] = simon(n, rep = 1, verbose = false)
   debug_on_error(true, "local");
 

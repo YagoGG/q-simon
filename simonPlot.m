@@ -20,9 +20,9 @@ function simonPlot(type, sett, export = false)
       endfor
       
       bar(nmin:nmax, trw);
-      title(strcat("Right/Wrong results per value for n (", num2str(rep), " reruns)"), "fontsize", 15, "fontweight", "bold");
+      title(strcat("Right/Wrong results per value for n (", num2str(rep), " executions)"), "fontsize", 15, "fontweight", "bold");
       xlabel("n values");
-      ylabel("Reruns");
+      ylabel("Executions");
       legend("Right", "Wrong");
       
     case 2  # Average execution time / n
@@ -51,7 +51,7 @@ function simonPlot(type, sett, export = false)
       else
         plot(nmin:nmax, avgts, "-o", "markerfacecolor", "blue");
       endif
-      title(strcat("Classical execution time per value for n (", num2str(rep), " reruns)"), "fontsize", 15, "fontweight", "bold");
+      title(strcat("Classical execution time per value for n (", num2str(rep), " executions)"), "fontsize", 15, "fontweight", "bold");
       xlabel("n values");
       ylabel("Classical time (s)");
     case 3 # Not used anymore. Kept for other graphs' ID number consistency
@@ -76,7 +76,7 @@ function simonPlot(type, sett, export = false)
       fprintf("Elapsed quantum steps: %i\n", sum(tqs(:)));
       
       plot(nmin:nmax, avgqs, "-o", "markerfacecolor", "blue");
-      title(strcat("Average quantum steps per value for n (", num2str(rep), " reruns)"), "fontsize", 15, "fontweight", "bold");
+      title(strcat("Average quantum steps per value for n (", num2str(rep), " executions)"), "fontsize", 15, "fontweight", "bold");
       xlabel("n values");
       ylabel("Number of quantum steps");
     case 5  # Average quantums steps + classical big-O / n (logarithmic)
@@ -100,7 +100,7 @@ function simonPlot(type, sett, export = false)
       fprintf("Elapsed quantum steps: %i\n", sum(tqs(:)));
       
       semilogy(nmin:nmax, avgqs, "-o", "markerfacecolor", "blue");
-      title(strcat("Average quantum steps per value for n (", num2str(rep), " reruns)"), "fontsize", 15, "fontweight", "bold");
+      title(strcat("Average quantum steps per value for n (", num2str(rep), " executions)"), "fontsize", 15, "fontweight", "bold");
       xlabel("n values");
       ylabel("Number of quantum steps");
 
@@ -139,7 +139,7 @@ function simonPlot(type, sett, export = false)
       fprintf("Elapsed execution time: %is\n", sum(trt(:)));
       
       semilogy(nmin:nmax, avgqs, "-ob", "markerfacecolor", "blue", nmin:nmax, avgts, "-or", "markerfacecolor", "red");
-      title(strcat("Average quantum steps per valor for n y average execution time (", num2str(rep), " reruns)"), "fontsize", 15, "fontweight", "bold");
+      title(strcat("Average quantum steps per valor for n y average execution time (", num2str(rep), " executions)"), "fontsize", 15, "fontweight", "bold");
       xlabel("n values");
     otherwise
       error("simonPlot: unknown type of plot.");
